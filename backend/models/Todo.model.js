@@ -6,7 +6,7 @@ const todoSchema = new mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["ToDo", "On Going", "Done"],
+      enum: ["Todo", "On Going", "Done"],
     },
     postedBy: {
       type: mongoose.Schema.Types.ObjectId,
