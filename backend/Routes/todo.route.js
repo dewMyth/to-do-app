@@ -30,4 +30,14 @@ router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
+//Delete User's Todos
+router.delete("/:id/:todoId", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    await Todo.findByIdAndDelete(req.params.todoId);
+    res.status(200).json({ message: "Todo deleted successfully!" });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
