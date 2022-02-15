@@ -13,9 +13,11 @@ dotenv.config();
 
 //Routes Import
 const userRoute = require("./routes/user.route");
+const todoRoute = require("./routes/todo.route");
 
 //Route Paths
 app.use("/api/user", userRoute);
+app.use("/api/todo", todoRoute);
 
 //Databasce Connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(

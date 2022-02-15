@@ -4,6 +4,8 @@ const User = require("../models/User.model");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 
+const { verifyToken, verifyTokenAndAuthorization } = require("./verifyToken");
+
 //Register User
 router.post("/register", async (req, res) => {
   console.log(req.body);
@@ -49,6 +51,17 @@ router.post("/login", async (req, res) => {
     const { password, ...others } = user._doc;
 
     res.status(200).json({ ...others, accessToken });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//Get user
+router.get("/find/:id", verifyToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const { password, ...others } = user._doc;
+    res.status(200).json(others);
   } catch (err) {
     res.status(500).json(err);
   }
