@@ -20,9 +20,14 @@ router.post("/create", verifyToken, async (req, res) => {
   }
 });
 
-//View Todos
-router.get("/", verifyToken, async (req, res) => {
-  res.send("Working...");
+//View User's Todos
+router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const todo = await Todo.find({ userId: req.params.userId });
+    res.status(200).json(todo);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
