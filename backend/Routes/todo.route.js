@@ -40,4 +40,18 @@ router.delete("/:id/:todoId", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
+//Change Todo
+router.put("/:id/:todoId", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.todoId,
+      { $set: req.body },
+      { new: true }
+    );
+    res.status(200).json(updatedTodo);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
