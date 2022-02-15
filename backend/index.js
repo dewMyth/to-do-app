@@ -11,7 +11,11 @@ app.use(cors());
 
 dotenv.config();
 
-//Routes
+//Routes Import
+const userRoute = require("./routes/user.route");
+
+//Route Paths
+app.use("/api/user", userRoute);
 
 //Databasce Connection
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(
