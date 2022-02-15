@@ -1,3 +1,4 @@
+//Importing Necessary Libraries
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true }).then(
   }
 );
 
+//Server Initiation
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server started on port 5000");
 });
