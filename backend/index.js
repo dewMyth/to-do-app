@@ -1,14 +1,18 @@
-//Importing Necessary Libraries
+//Importing Necessary NPM Libraries
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
+//Creating the Express App
 const app = express();
-app.use(express.json()); // for parsing application/json - important to take json input as object
+
+// for parsing application/json - important to take json input as object
+app.use(express.json());
 
 app.use(cors());
 
+//Config File for Environment Variables
 dotenv.config();
 
 //Routes Import

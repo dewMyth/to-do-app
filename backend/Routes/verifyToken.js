@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+//Check whether the user has correct token
 const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
   if (authHeader) {
@@ -15,6 +16,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
+//Check whether the user has correct token and authorization
 const verifyTokenAndAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
     if (req.user.id === req.params.id) {
