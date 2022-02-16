@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -18,13 +18,42 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+import axios from "axios";
+
 const Todo = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("working...");
+  const { user } = useContext(AuthContext);
+
+  const config = {
+    headers: { token: `bearer ${user.accessToken}` },
   };
 
-  const [status, setStatus] = React.useState("");
+  const handleSubmit = async (e) => {
+    console.log(config);
+    e.preventDefault();
+    const newTodo = {
+      title: title,
+      status: status,
+      postedBy: user._id,
+    };
+    console.log(newTodo);
+    try {
+      await axios.post("/api/todo/create", newTodo, config);
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const [title, setTitle] = useState("");
+  const [status, setStatus] = useState("");
+
+  const handletitle = (e) => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
 
   const handleChange = (event) => {
     setStatus(event.target.value);
@@ -55,6 +84,7 @@ const Todo = () => {
               id="title"
               label="Title"
               name="title"
+              onChange={handletitle}
               autoFocus
             />
             <Box sx={{ minWidth: 120 }} mt={2}>
@@ -68,7 +98,7 @@ const Todo = () => {
                   onChange={handleChange}
                 >
                   <MenuItem value={"Todo"}>Todo</MenuItem>
-                  <MenuItem value={"On going"}>On going</MenuItem>
+                  <MenuItem value={"On Going"}>On Going</MenuItem>
                   <MenuItem value={"Done"}>Done</MenuItem>
                 </Select>
               </FormControl>
