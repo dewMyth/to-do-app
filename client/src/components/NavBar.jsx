@@ -108,22 +108,26 @@ const ResponsiveAppBar = () => {
           >
             LOGO
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                <Link
-                  style={{ textDecoration: "none", color: "white" }}
-                  to={`/${page.toLowerCase()}`}
+          {!user ? (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
-                </Link>
-              </Button>
-            ))}
-          </Box>
+                  <Link
+                    style={{ textDecoration: "none", color: "white" }}
+                    to={`/${page.toLowerCase()}`}
+                  >
+                    {page}
+                  </Link>
+                </Button>
+              ))}
+            </Box>
+          ) : (
+            ""
+          )}
 
           <Button color="inherit">{user ? user.username : ""}</Button>
 

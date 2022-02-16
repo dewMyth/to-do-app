@@ -30,6 +30,8 @@ import Edit from "./Edit";
 
 import axios from "axios";
 
+import "./mobile.css";
+
 const Todo = ({ todo }) => {
   const { user } = useContext(AuthContext);
 
@@ -60,7 +62,7 @@ const Todo = ({ todo }) => {
             <Avatar>
               {todo.status === "Todo" ? <ListIcon /> : ""}
               {todo.status === "On Going" ? <DirectionsRunIcon /> : ""}
-              {todo.status === "Done" ? <DoneIcon /> : ""}
+              {todo.status === "Done" ? <ListIcon /> : ""}
               {/* <WorkIcon /> */}
             </Avatar>
           </ListItemAvatar>
@@ -89,6 +91,7 @@ const Todo = ({ todo }) => {
         </ListItem>
       </List>
       <Backdrop
+        id="backdrop"
         sx={{
           backgroundColor: "#fff",
           margin: "100px 300px",

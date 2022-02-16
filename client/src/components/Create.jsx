@@ -94,22 +94,6 @@ const Create = () => {
               onChange={handletitle}
               autoFocus
             />
-            {/* <Box sx={{ minWidth: 120 }} mt={2}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  label="Status"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={"Todo"}>Todo</MenuItem>
-                  <MenuItem value={"On Going"}>On Going</MenuItem>
-                  <MenuItem value={"Done"}>Done</MenuItem>
-                </Select>
-              </FormControl>
-            </Box> */}
             <ToggleButtonGroup value={status} exclusive onChange={handleStatus}>
               <ToggleButton value="Todo" aria-label="left aligned">
                 <ListIcon />
