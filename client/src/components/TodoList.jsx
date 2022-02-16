@@ -28,9 +28,13 @@ const TodoList = () => {
   return (
     <React.Fragment>
       <div>My TodoList</div>
-      {TodoList.map((item) => {
-        return <Todo key={item._id} todo={item} />;
-      })}
+      {TodoList.length === 0 ? (
+        <div>No Todos</div>
+      ) : (
+        TodoList.map((item) => {
+          return <Todo key={item._id} todo={item} />;
+        })
+      )}
     </React.Fragment>
   );
 };
