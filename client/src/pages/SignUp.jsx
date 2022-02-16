@@ -11,6 +11,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
+
 import axios from "axios";
 
 const theme = createTheme();
@@ -18,6 +21,8 @@ const theme = createTheme();
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,11 +33,17 @@ export default function SignUp() {
       password: password,
     };
     console.log(newUser);
-    try {
-      await axios.post("/api/user/register", newUser);
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
+    if (password == confirmPassword) {
+      try {
+        console.log("asdsad");
+        await axios.post("/api/user/register", newUser);
+        navigate("/login");
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("Passwords do not match");
+      setError(true);
     }
   };
 
@@ -42,6 +53,10 @@ export default function SignUp() {
 
   const onChangePassword = (e) => {
     setPassword(e.target.value);
+  };
+
+  const onChangeConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
   };
 
   return (
@@ -91,6 +106,26 @@ export default function SignUp() {
               id="password"
               autoComplete="current-password"
             />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value={confirmPassword}
+              onChange={onChangeConfirmPassword}
+              name="confirm-password"
+              label="Confirm Password"
+              type="password"
+              id="confirm-password"
+              autoComplete="current-password"
+            />
+            {error ? (
+              <Stack sx={{ width: "100%" }} spacing={2}>
+                <Alert severity="error">Passwords doesn't match !</Alert>
+              </Stack>
+            ) : (
+              ""
+            )}
+
             {/* <TextField
               margin="normal"
               required
