@@ -23,7 +23,7 @@ router.post("/create", verifyToken, async (req, res) => {
 //View User's Todos
 router.get("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const todo = await Todo.find({ userId: req.params.userId });
+    const todo = await Todo.find({ postedBy: req.params.id });
     res.status(200).json(todo);
   } catch (err) {
     res.status(500).json(err);
