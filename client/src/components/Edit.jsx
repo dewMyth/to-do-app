@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -23,7 +23,7 @@ import { AuthContext } from "../context/AuthContext";
 
 import axios from "axios";
 
-const Create = () => {
+const Edit = ({ todo }) => {
   const { user } = useContext(AuthContext);
 
   const config = {
@@ -33,14 +33,13 @@ const Create = () => {
   const handleSubmit = async (e) => {
     console.log(config);
     e.preventDefault();
-    const newTodo = {
+    const updatedTodo = {
       title: title,
       status: status,
-      postedBy: user._id,
     };
-    console.log(newTodo);
+    console.log(updatedTodo);
     try {
-      await axios.post("/api/todo/create", newTodo, config);
+      await axios.put(`/api/todo/${user._id}/${todo._id}`, updatedTodo, config);
       window.location.reload();
     } catch (err) {
       console.log(err);
@@ -50,18 +49,22 @@ const Create = () => {
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("");
 
+  useEffect(() => {
+    setTitle(todo.title);
+    setStatus(todo.status);
+  }, [todo._id]);
+
   const handletitle = (e) => {
-    e.preventDefault();
     setTitle(e.target.value);
   };
 
-  const handleChange = (event) => {
-    setStatus(event.target.value);
+  const handleStatus = (e) => {
+    setStatus(e.target.value);
   };
 
   return (
     <ThemeProvider>
-      <Container component="main" maxWidth="false" style={{ width: "100%" }}>
+      <Container component="main" maxWidth="lg" style={{ width: "100%" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -71,6 +74,9 @@ const Create = () => {
             alignItems: "center",
           }}
         >
+          <Typography component="h1" variant="h4" sx={{ color: "#000" }}>
+            Edit Todo
+          </Typography>
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -84,6 +90,7 @@ const Create = () => {
               id="title"
               label="Title"
               name="title"
+              value={title}
               onChange={handletitle}
               autoFocus
             />
@@ -95,7 +102,7 @@ const Create = () => {
                   id="demo-simple-select"
                   value={status}
                   label="Status"
-                  onChange={handleChange}
+                  onChange={handleStatus}
                 >
                   <MenuItem value={"Todo"}>Todo</MenuItem>
                   <MenuItem value={"On Going"}>On Going</MenuItem>
@@ -109,7 +116,7 @@ const Create = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create Todo
+              Edit Todo
             </Button>
           </Box>
         </Box>
@@ -118,4 +125,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default Edit;
