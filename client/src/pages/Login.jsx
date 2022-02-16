@@ -37,10 +37,12 @@ export default function Login() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log(username, password);
     e.preventDefault();
-    loginCall({ username, password }, dispatch);
-    navigate("/dashboard");
+    await loginCall({ username, password }, dispatch);
+    navigate("/");
+    window.location.reload(false);
   };
 
   return (

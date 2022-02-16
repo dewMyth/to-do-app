@@ -21,7 +21,7 @@ function App() {
       <Router>
         <ResponsiveAppBar />
         <Routes>
-          <Route path="/" element={user ? <Dashboard /> : <Home />} />
+          <Route path="/" element={user ? <Dashboard /> : <Login />} />
           <Route
             path="/register"
             element={user ? <Navigate to="/" /> : <SignUp />}
@@ -30,7 +30,7 @@ function App() {
             path="/login"
             element={user ? <Navigate to="/" /> : <Login />}
           />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
         </Routes>
       </Router>
     </AuthContextProvider>

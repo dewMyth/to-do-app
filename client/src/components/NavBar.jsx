@@ -45,7 +45,8 @@ const ResponsiveAppBar = () => {
 
   const handleLogout = () => {
     window.localStorage.clear();
-    navigate("/login");
+    navigate("/");
+    window.location.reload(false);
   };
 
   return (
