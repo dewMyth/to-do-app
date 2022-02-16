@@ -8,7 +8,12 @@ import ImageIcon from "@mui/icons-material/Image";
 import WorkIcon from "@mui/icons-material/Work";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 
-const Todo = () => {
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+const Todo = ({ todo }) => {
+  console.log(todo);
+  const { user } = useContext(AuthContext);
   return (
     <List
       sx={{
@@ -24,7 +29,7 @@ const Todo = () => {
             <WorkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Title" secondary="Status" />
+        <ListItemText primary={todo.title} secondary={todo.status} />
       </ListItem>
     </List>
   );

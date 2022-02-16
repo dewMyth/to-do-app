@@ -14,8 +14,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 
-import Todo from "../components/Todo";
 import Create from "../components/Create";
+import TodoList from "../components/TodoList";
 
 export default function Dashboard() {
   const theme = createTheme();
@@ -48,7 +48,7 @@ export default function Dashboard() {
           </Typography>
           <Create />
           <hr />
-          <Todo />
+          <TodoList />
         </Box>
       </Container>
     </ThemeProvider>
