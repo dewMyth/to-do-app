@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,12 +11,37 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import axios from "axios";
+
 const theme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (e) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
+    const newUser = {
+      username: username,
+      password: password,
+    };
+    console.log(newUser);
+    try {
+      await axios.post("/api/user/register", newUser);
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
@@ -34,7 +60,7 @@ export default function SignUp() {
             {/* <LockOutlinedIcon /> */}
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Register
           </Typography>
           <Box
             component="form"
@@ -46,6 +72,8 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
+              value={username}
+              onChange={onChangeUsername}
               id="username"
               label="Username"
               name="username"
@@ -55,13 +83,15 @@ export default function SignUp() {
               margin="normal"
               required
               fullWidth
+              value={password}
+              onChange={onChangePassword}
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
             />
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -70,7 +100,7 @@ export default function SignUp() {
               type="password"
               id="confirm-password"
               autoComplete="current-password"
-            />
+            /> */}
             <Button
               type="submit"
               fullWidth

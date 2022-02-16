@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,12 +13,34 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+// import { CircularProgress } from "@mui/material";
+
+import { AuthContext } from "../context/AuthContext";
+
+import { loginCall } from "../apiCall";
+import { useNavigate } from "react-router-dom";
+
 const theme = createTheme();
 
 export default function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const { isFetching, dispatch } = useContext(AuthContext);
+
+  let navigate = useNavigate();
+
+  const onChangeUsername = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const onChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("handleSubmit");
+    loginCall({ username, password }, dispatch);
+    navigate("/dashboard");
   };
 
   return (
@@ -49,6 +71,8 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={username}
+              onChange={onChangeUsername}
               id="username"
               label="Username"
               name="username"
@@ -58,6 +82,8 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
+              value={password}
+              onChange={onChangePassword}
               name="password"
               label="Password"
               type="password"
@@ -70,7 +96,7 @@ export default function Login() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Login
             </Button>
             <Grid container>
               <Grid item>
