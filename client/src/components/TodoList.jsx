@@ -18,7 +18,7 @@ const TodoList = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       console.log(config);
-      const res = await axios.get("/api/todo/" + user._id, config);
+      const res = await axios.get(`/api/todo/${user._id}`, config);
       console.log(res.data);
       setTodos(res.data);
     };

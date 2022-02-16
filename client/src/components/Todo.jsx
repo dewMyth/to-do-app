@@ -4,9 +4,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import WorkIcon from "@mui/icons-material/Work";
-import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 
 import Badge from "@mui/material/Badge";
 import Stack from "@mui/material/Stack";
@@ -62,7 +59,7 @@ const Todo = ({ todo }) => {
             <Avatar>
               {todo.status === "Todo" ? <ListIcon /> : ""}
               {todo.status === "On Going" ? <DirectionsRunIcon /> : ""}
-              {todo.status === "Done" ? <ListIcon /> : ""}
+              {todo.status === "Done" ? <DoneIcon /> : ""}
               {/* <WorkIcon /> */}
             </Avatar>
           </ListItemAvatar>
