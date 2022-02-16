@@ -21,6 +21,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
+import ListIcon from "@mui/icons-material/List";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import DoneIcon from "@mui/icons-material/Done";
+
 import axios from "axios";
 
 const Create = () => {
@@ -55,8 +62,8 @@ const Create = () => {
     setTitle(e.target.value);
   };
 
-  const handleChange = (event) => {
-    setStatus(event.target.value);
+  const handleStatus = (e, newStatus) => {
+    setStatus(newStatus);
   };
 
   return (
@@ -87,7 +94,7 @@ const Create = () => {
               onChange={handletitle}
               autoFocus
             />
-            <Box sx={{ minWidth: 120 }} mt={2}>
+            {/* <Box sx={{ minWidth: 120 }} mt={2}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Status</InputLabel>
                 <Select
@@ -102,7 +109,18 @@ const Create = () => {
                   <MenuItem value={"Done"}>Done</MenuItem>
                 </Select>
               </FormControl>
-            </Box>
+            </Box> */}
+            <ToggleButtonGroup value={status} exclusive onChange={handleStatus}>
+              <ToggleButton value="Todo" aria-label="left aligned">
+                <ListIcon />
+              </ToggleButton>
+              <ToggleButton value="On Going" aria-label="centered">
+                <DirectionsRunIcon />
+              </ToggleButton>
+              <ToggleButton value="Done" aria-label="right aligned">
+                <DoneIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
             <Button
               type="submit"
               fullWidth

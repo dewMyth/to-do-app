@@ -41,6 +41,7 @@ export default function Login() {
     console.log(username, password);
     e.preventDefault();
     await loginCall({ username, password }, dispatch);
+
     navigate("/");
     window.location.reload(false);
   };

@@ -20,6 +20,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
+import ListIcon from "@mui/icons-material/List";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import DoneIcon from "@mui/icons-material/Done";
+
 import { Link } from "react-router-dom";
 
 import Edit from "./Edit";
@@ -54,7 +58,10 @@ const Todo = ({ todo }) => {
         <ListItem>
           <ListItemAvatar>
             <Avatar>
-              <WorkIcon />
+              {todo.status === "Todo" ? <ListIcon /> : ""}
+              {todo.status === "On Going" ? <DirectionsRunIcon /> : ""}
+              {todo.status === "Done" ? <DoneIcon /> : ""}
+              {/* <WorkIcon /> */}
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={todo.title} secondary={todo.status} />

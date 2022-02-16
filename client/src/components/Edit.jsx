@@ -18,6 +18,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import FormatAlignLeftIcon from "@mui/icons-material/FormatAlignLeft";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import FormatAlignRightIcon from "@mui/icons-material/FormatAlignRight";
+import FormatAlignJustifyIcon from "@mui/icons-material/FormatAlignJustify";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+
+import ListIcon from "@mui/icons-material/List";
+import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
+import DoneIcon from "@mui/icons-material/Done";
+
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
@@ -25,6 +36,12 @@ import axios from "axios";
 
 const Edit = ({ todo }) => {
   const { user } = useContext(AuthContext);
+
+  // const [status, setStatus] = React.useState("left");
+
+  const handleStatus = (event, newStatus) => {
+    setStatus(newStatus);
+  };
 
   const config = {
     headers: { token: `bearer ${user.accessToken}` },
@@ -56,10 +73,6 @@ const Edit = ({ todo }) => {
 
   const handletitle = (e) => {
     setTitle(e.target.value);
-  };
-
-  const handleStatus = (e) => {
-    setStatus(e.target.value);
   };
 
   return (
@@ -94,22 +107,18 @@ const Edit = ({ todo }) => {
               onChange={handletitle}
               autoFocus
             />
-            <Box sx={{ minWidth: 120 }} mt={2}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Status</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={status}
-                  label="Status"
-                  onChange={handleStatus}
-                >
-                  <MenuItem value={"Todo"}>Todo</MenuItem>
-                  <MenuItem value={"On Going"}>On Going</MenuItem>
-                  <MenuItem value={"Done"}>Done</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
+            <ToggleButtonGroup value={status} exclusive onChange={handleStatus}>
+              <ToggleButton value="Todo" aria-label="left aligned">
+                <ListIcon />
+              </ToggleButton>
+              <ToggleButton value="On Going" aria-label="centered">
+                <DirectionsRunIcon />
+              </ToggleButton>
+              <ToggleButton value="Done" aria-label="right aligned">
+                <DoneIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
+
             <Button
               type="submit"
               fullWidth
