@@ -15,14 +15,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { AuthContext } from "../context/AuthContext";
 
-import { loginCall } from "../apiCall";
+import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+
+import Alert from "@mui/material/Alert";
+import Stack from "@mui/material/Stack";
 
 const theme = createTheme();
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
   const { isFetching, dispatch } = useContext(AuthContext);
 
   let navigate = useNavigate();
@@ -38,10 +44,23 @@ export default function Login() {
   const handleSubmit = async (e) => {
     console.log(username, password);
     e.preventDefault();
-    await loginCall({ username, password }, dispatch);
 
-    navigate("/");
-    window.location.reload(false);
+    const userCredentials = {
+      username,
+      password,
+    };
+
+    // dispatch({ type: "LOGIN_START" });
+    try {
+      const res = await axios.post("/api/user/login", userCredentials);
+      dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
+      navigate("/");
+      window.location.reload(false);
+    } catch (err) {
+      dispatch({ type: "LOGIN_FAILURE", payload: err });
+      setIsError(true);
+      setError(err.response.data.message);
+    }
   };
 
   return (
@@ -91,6 +110,13 @@ export default function Login() {
               id="password"
               autoComplete="current-password"
             />
+            {isError ? (
+              <Stack sx={{ width: "100%" }} spacing={2}>
+                <Alert severity="error">{error} !</Alert>
+              </Stack>
+            ) : (
+              ""
+            )}
             <Button
               type="submit"
               fullWidth
