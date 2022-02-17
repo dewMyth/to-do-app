@@ -3,9 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -21,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+
+import { Link } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -127,7 +126,7 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

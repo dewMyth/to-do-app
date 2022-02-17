@@ -4,7 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,6 +12,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import Alert from "@mui/material/Alert";
 import Stack from "@mui/material/Stack";
+
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 
@@ -125,17 +126,6 @@ export default function SignUp() {
             ) : (
               ""
             )}
-
-            {/* <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="cofirm-password"
-              label="Confirm Password"
-              type="password"
-              id="confirm-password"
-              autoComplete="current-password"
-            /> */}
             <Button
               type="submit"
               fullWidth
@@ -146,7 +136,7 @@ export default function SignUp() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/login" variant="body2">
                   {"Already have an account? Login"}
                 </Link>
               </Grid>
